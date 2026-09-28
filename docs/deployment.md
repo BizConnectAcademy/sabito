@@ -3,7 +3,7 @@
 Sabito's canonical endpoint is:
 
 ```text
-https://sabito.bizconnectacademy.com
+https://chat.bizconnectacademy.com
 ```
 
 ## DNS
@@ -18,7 +18,7 @@ public IPv4 address. Add an `AAAA` record only when IPv6 is configured on that s
 3. Copy `deploy/nginx/sabito.bizconnectacademy.com.conf` into the server's Nginx configuration.
 4. Obtain a Let's Encrypt certificate for `sabito.bizconnectacademy.com`.
 5. Test with `nginx -t`, then reload Nginx.
-6. Verify `https://sabito.bizconnectacademy.com/health`.
+6. Verify `https://chat.bizconnectacademy.com/health`.
 
 The dedicated `/socket.io/` block is required. It forwards the WebSocket upgrade headers and
 disables response buffering so real-time message deltas arrive immediately.

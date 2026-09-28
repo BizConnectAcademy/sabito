@@ -4,7 +4,7 @@ import { z } from 'zod';
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(4100),
-  PUBLIC_URL: z.string().url().default('https://sabito.bizconnectacademy.com'),
+  PUBLIC_URL: z.string().url().default('https://chat.bizconnectacademy.com'),
   LOG_LEVEL: z.string().default('info'),
   DATABASE_URL: z.string().url(),
   JWT_SECRET: z.string().min(32),

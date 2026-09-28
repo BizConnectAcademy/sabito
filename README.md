@@ -3,7 +3,7 @@
 Sabito-BCA is an independent, multi-project AI agent service for BizConnect Academy and other BCA
 team products. It uses Node.js, TypeScript, MySQL, and Socket.IO.
 
-Production domain: `https://sabito.bizconnectacademy.com`
+Production domain: `https://chat.bizconnectacademy.com`
 
 ## What is implemented
 
