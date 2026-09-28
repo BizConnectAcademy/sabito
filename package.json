@@ -1,0 +1,39 @@
+{
+  "name": "sabito-bca",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Multi-project, real-time AI agent for BCA platforms.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "npm run build && node --watch dist/src/server.js",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/src/server.js",
+    "migrate": "npm run build && node dist/src/database/migrate.js",
+    "project:create": "npm run build && node dist/src/cli/create-project.js",
+    "knowledge:import": "npm run build && node dist/src/cli/import-knowledge.js",
+    "test": "npm run build && node --test dist/test/security.test.js dist/test/knowledge-answer.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.15.0",
+    "pino": "^9.9.4",
+    "pino-http": "^10.5.0",
+    "socket.io": "^4.8.1",
+    "zod": "^4.1.8"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.3.1",
+    "typescript": "^5.9.2"
+  }
+}

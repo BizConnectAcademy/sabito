@@ -1,0 +1,32 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: sabito_bca
+      MYSQL_USER: sabito
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-sabito_password}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change_root_password}
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - sabito_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pchange_root_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  sabito:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: mysql://sabito:${MYSQL_PASSWORD:-sabito_password}@mysql:3306/sabito_bca
+    ports:
+      - "127.0.0.1:4100:4100"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: ["sh", "-c", "node dist/src/database/migrate.js && node dist/src/server.js"]
+
+volumes:
+  sabito_mysql_data:

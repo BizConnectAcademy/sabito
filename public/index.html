@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Sabito-BCA knowledge and project administration" />
+    <title>Sabito-BCA Control Room</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/admin.js" defer></script>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Sabito-BCA home">
+          <span class="brand-mark">S</span>
+          <span>
+            <strong>Sabito-BCA</strong>
+            <small>Knowledge control room</small>
+          </span>
+        </a>
+        <div class="status"><span></span> Self-hosted</div>
+      </header>
+
+      <main>
+        <section id="login-view" class="auth-layout">
+          <div class="hero">
+            <p class="eyebrow">One agent. Every BCA platform.</p>
+            <h1>Knowledge stays inside your infrastructure.</h1>
+            <p>
+              Manage connected products, credentials, and approved knowledge for Sabito's
+              real-time answers.
+            </p>
+            <div class="domain">sabito.bizconnectacademy.com</div>
+          </div>
+          <form id="login-form" class="panel auth-panel">
+            <p class="eyebrow">Administrator access</p>
+            <h2>Open the control room</h2>
+            <label for="admin-key">Admin API key</label>
+            <input id="admin-key" type="password" autocomplete="current-password" required />
+            <button type="submit">Continue securely</button>
+            <p id="login-error" class="error" role="alert"></p>
+            <small>The key is kept only in this browser tab and cleared when you sign out.</small>
+          </form>
+        </section>
+
+        <section id="dashboard-view" class="dashboard hidden">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Platform administration</p>
+              <h1>Connected projects</h1>
+              <p>Each project has isolated credentials, conversations, and knowledge.</p>
+            </div>
+            <div class="actions">
+              <button id="refresh-button" class="secondary" type="button">Refresh</button>
+              <button id="new-project-button" type="button">New project</button>
+              <button id="logout-button" class="quiet" type="button">Sign out</button>
+            </div>
+          </div>
+
+          <div id="dashboard-message" class="notice hidden" role="status"></div>
+          <div id="project-grid" class="project-grid"></div>
+          <div id="empty-state" class="empty hidden">
+            <span class="brand-mark">S</span>
+            <h2>No projects connected yet</h2>
+            <p>Create BCA as the first project, then add its approved backend knowledge.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="project-dialog">
+      <form id="project-form" class="dialog-form">
+        <div class="dialog-heading">
+          <div><p class="eyebrow">New tenant</p><h2>Create a project</h2></div>
+          <button type="button" class="icon-button" data-close="project-dialog" aria-label="Close">×</button>
+        </div>
+        <div class="field-row">
+          <div><label for="project-name">Project name</label><input id="project-name" required maxlength="150" /></div>
+          <div><label for="project-slug">Slug</label><input id="project-slug" required maxlength="80" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" /></div>
+        </div>
+        <label for="assistant-name">Assistant name</label>
+        <input id="assistant-name" value="Sabito" required maxlength="80" />
+        <label for="system-prompt">Project rules</label>
+        <textarea id="system-prompt" required minlength="20" maxlength="20000" rows="6">You are Sabito, the official platform assistant. Answer only from approved project knowledge. If the answer is not present, say that you do not know.</textarea>
+        <p id="project-error" class="error" role="alert"></p>
+        <button type="submit">Create project</button>
+      </form>
+    </dialog>
+
+    <dialog id="knowledge-dialog">
+      <form id="knowledge-form" class="dialog-form">
+        <div class="dialog-heading">
+          <div><p class="eyebrow">Approved source</p><h2>Add knowledge</h2></div>
+          <button type="button" class="icon-button" data-close="knowledge-dialog" aria-label="Close">×</button>
+        </div>
+        <input id="knowledge-project-id" type="hidden" />
+        <p id="knowledge-project-name" class="context-label"></p>
+        <label for="knowledge-title">Source title</label>
+        <input id="knowledge-title" required maxlength="255" placeholder="BCA account and login guide" />
+        <label for="knowledge-content">Reviewed content</label>
+        <textarea id="knowledge-content" required minlength="20" maxlength="1000000" rows="12" placeholder="Paste an approved backend summary or help document…"></textarea>
+        <p id="knowledge-error" class="error" role="alert"></p>
+        <button type="submit">Index knowledge</button>
+      </form>
+    </dialog>
+
+    <dialog id="credentials-dialog">
+      <div class="dialog-form">
+        <div class="dialog-heading">
+          <div><p class="eyebrow">Shown once</p><h2>Store these credentials</h2></div>
+        </div>
+        <p class="warning">The client secret cannot be displayed again. Keep it only in the platform backend.</p>
+        <label>Client ID</label><div class="secret-row"><code id="credential-id"></code><button class="secondary copy" data-copy="credential-id">Copy</button></div>
+        <label>Client secret</label><div class="secret-row"><code id="credential-secret"></code><button class="secondary copy" data-copy="credential-secret">Copy</button></div>
+        <button type="button" data-close="credentials-dialog">I stored them securely</button>
+      </div>
+    </dialog>
+  </body>
+</html>
